@@ -53,3 +53,14 @@ h1 {
   font-size: 0.8rem;
   font-style: italic;
 }
+
+.year_ascending {
+  padding: 15px 32px;
+  font-size: 16px;
+  margin: 20px;
+}
+
+.year_descending {
+  padding: 15px 32px;
+  font-size: 16px;
+}
