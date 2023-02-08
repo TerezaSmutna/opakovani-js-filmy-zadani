@@ -22,61 +22,62 @@ const renderMovies = () => {
     })
     .then((data) => {
       console.log(data);
-      novaData = data;
-      showMovies(data);
+      novaData = data
+        .sort((a, b) => {
+          if (a.title < b.title) {
+            return -1;
+          }
+          if (a.title > b.title) {
+            return 1;
+          }
+          return 0;
+        })
+      showMovies(novaData);
     });
 };
 
-
 const showMovies = (items) => {
-movieList.innerHTML = items
-.sort((a,b) => { 
-  if ( a.title < b.title) {
-    return -1;
-  }
-  if (a.title > b.title) {
-    return 1;
-  }
-  return 0;
-})
-.map((movie) => {
-  return Movie(movie);
-}).join('');
+  movieList.innerHTML = items
+    .map((movie) => {
+      return Movie(movie);
+    }).join('');
 }
-
-
 
 renderMovies();
 
 document.querySelector('.year_ascending').addEventListener('click', () => {
-  movieList.innerHTML = novaData
-  .sort((a,b) => {  
-    if ( a.year < b.year) {
-      return -1;
-    }
-    if (a.year > b.year) {
-      return 1;
-    }
-    return 0;
-  })
-  .map((movie) => {
-    return Movie(movie);
-  }).join('');
+  sortMoviesAsc(novaData);
 });
 
 
 document.querySelector('.year_descending').addEventListener('click', () => {
-  movieList.innerHTML = novaData
-  .sort((a,b) => {  
-    if ( a.year < b.year) {
-      return 1;
-    }
-    if (a.year > b.year) {
-      return -1;
-    }
-    return 0;
-  })
-  .map((movie) => {
-    return Movie(movie);
-  }).join('');
+  sortMovingDesc(novaData);
 });
+
+const sortMoviesAsc = (items) => {
+  let ascending = items
+    .sort((a, b) => {
+      if (a.year < b.year) {
+        return -1;
+      }
+      if (a.year > b.year) {
+        return 1;
+      }
+      return 0;
+    });
+  showMovies(ascending);
+}
+
+const sortMovingDesc = (items) => {
+  let descending = items
+    .sort((a, b) => {
+      if (a.year < b.year) {
+        return 1;
+      }
+      if (a.year > b.year) {
+        return -1;
+      }
+      return 0;
+    });
+  showMovies(descending);
+}
